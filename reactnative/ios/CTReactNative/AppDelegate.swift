@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow(frame: UIScreen.main.bounds)
 
     factory.startReactNative(
-      withModuleName: "reactnative",
+      withModuleName: "CT React Native",
       in: window,
       launchOptions: launchOptions
     )
