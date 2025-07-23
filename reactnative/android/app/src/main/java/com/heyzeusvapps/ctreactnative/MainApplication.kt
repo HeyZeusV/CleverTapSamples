@@ -1,6 +1,11 @@
 package com.heyzeusvapps.ctreactnative
 
 import android.app.Application
+import com.clevertap.android.sdk.ActivityLifecycleCallback
+import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.CleverTapAPI.LogLevel;
+import com.clevertap.react.CleverTapApplication
+import com.clevertap.react.CleverTapPackage
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactHost
@@ -10,7 +15,7 @@ import com.facebook.react.ReactPackage
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 
-class MainApplication : Application(), ReactApplication {
+class MainApplication : CleverTapApplication(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
       object : DefaultReactNativeHost(this) {
@@ -18,6 +23,7 @@ class MainApplication : Application(), ReactApplication {
             PackageList(this).packages.apply {
               // Packages that cannot be autolinked yet can be added manually here, for example:
               // add(MyReactNativePackage())
+              add(CleverTapPackage())
             }
 
         override fun getJSMainModuleName(): String = "index"
@@ -32,6 +38,8 @@ class MainApplication : Application(), ReactApplication {
     get() = getDefaultReactHost(applicationContext, reactNativeHost)
 
   override fun onCreate() {
+    CleverTapAPI.setDebugLevel(LogLevel.VERBOSE)
+    ActivityLifecycleCallback.register(this)
     super.onCreate()
     loadReactNative(this)
   }
