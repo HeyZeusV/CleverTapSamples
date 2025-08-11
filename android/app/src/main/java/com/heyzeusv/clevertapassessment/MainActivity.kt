@@ -22,10 +22,9 @@ import com.clevertap.android.sdk.InAppNotificationButtonListener
 import com.heyzeusv.clevertapassessment.ui.MainScreen
 import com.heyzeusv.clevertapassessment.ui.MainViewModel
 import com.heyzeusv.clevertapassessment.ui.eventform.EventFormScreen
-import com.heyzeusv.clevertapassessment.ui.features.BluePillScreen
 import com.heyzeusv.clevertapassessment.ui.features.FeaturesScreen
+import com.heyzeusv.clevertapassessment.ui.features.InAppScreen
 import com.heyzeusv.clevertapassessment.ui.features.PillScreen
-import com.heyzeusv.clevertapassessment.ui.features.RedPillScreen
 import com.heyzeusv.clevertapassessment.ui.push.PushTemplatesScreen
 import com.heyzeusv.clevertapassessment.ui.theme.CleverTapAssessmentTheme
 import com.heyzeusv.clevertapassessment.util.NotificationUtils
@@ -82,7 +81,12 @@ class MainActivity : ComponentActivity(), InAppNotificationButtonListener, CTInb
 	 */
 	override fun onInAppButtonClick(p0: HashMap<String, String>?) {
 		p0?.let {
-			mainVM.handleCallToAction(p0["In-App Selected Pill"] ?: "")
+			try {
+				mainVM.handleCallToAction(p0.values.first())
+			} catch (e: NoSuchElementException) {
+				Log.d("CleverTap", "Error: ${e.message}")
+				mainVM.handleCallToAction("")
+			}
 		}
 	}
 
@@ -127,11 +131,9 @@ fun CleverTapAssessmentApp(
 			)
 		}
 		composable<Screen.Features> { FeaturesScreen() }
-		composable<Screen.RedPill> { RedPillScreen() }
-		composable<Screen.BluePill> { BluePillScreen() }
 		composable<Screen.Pill>(
 			deepLinks = listOf(
-				navDeepLink<Screen.Pill>(basePath = "https://www.clevertap-jesus.com")
+				navDeepLink<Screen.Pill>(basePath = "https://www.clevertap-jesus.com/pill")
 			),
 		) { backStackEntry ->
 			val pillSelected = backStackEntry.toRoute<Screen.Pill>().pill
@@ -139,6 +141,14 @@ fun CleverTapAssessmentApp(
 				"red-pill" -> PillScreen(RED)
 				else -> PillScreen(BLUE)
 			}
+		}
+		composable<Screen.InAppContent>(
+			deepLinks = listOf(
+				navDeepLink<Screen.InAppContent>(basePath = "https://www.clevertap-jesus.com/inapp")
+			),
+		) { backStackEntry ->
+			val type = backStackEntry.toRoute<Screen.InAppContent>().type
+			InAppScreen { mainVM.handleInAppContent(type) }
 		}
 		composable<Screen.EventForm> { EventFormScreen() }
 		composable<Screen.PushTemplates> { PushTemplatesScreen() }

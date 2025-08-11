@@ -26,7 +26,7 @@ class FeaturesViewModel(private val cleverTapAPI: CleverTapAPI) : ViewModel() {
 	private val _cleverTapId = MutableStateFlow(cleverTapAPI.cleverTapID)
 	val cleverTapId: StateFlow<String> get() = _cleverTapId.asStateFlow()
 
-	// Retrieves most Remote Config values
+	// Retrieves most Remote Config value
 	val remoteConfig: StateFlow<RemoteConfigValues> = callbackFlow {
 		val variablesChanged = object : VariablesChangedCallback() {
 			override fun variablesChanged() {
@@ -162,6 +162,26 @@ class FeaturesViewModel(private val cleverTapAPI: CleverTapAPI) : ViewModel() {
 	// Used for In-App notifications that use deeplinks
 	fun inAppDeepLinkEvent() {
 		cleverTapAPI.pushEvent("In-App Deep Link")
+	}
+
+	// Used for In-App Journey with GIF notifications
+	fun inAppGifPushJourney() {
+		cleverTapAPI.pushEvent("In-App GIF Push Journey")
+	}
+
+	// Used for In-App Journey with video notifications
+	fun inAppVideoPushJourney() {
+		cleverTapAPI.pushEvent("In-App Video Push Journey")
+	}
+
+	// Used for In-App Journey with GIF notifications
+	fun inAppGifInAppJourney() {
+		cleverTapAPI.pushEvent("In-App GIF In-App Journey")
+	}
+
+	// Used for In-App Journey with video notifications
+	fun inAppVideoInAppJourney() {
+		cleverTapAPI.pushEvent("In-App Video In-App Journey")
 	}
 
 	// Resume receiving In-App notifications

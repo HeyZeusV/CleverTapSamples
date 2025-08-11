@@ -147,6 +147,46 @@ fun FeaturesScreen(featuresVm: FeaturesViewModel = koinViewModel()) {
 						verticalAlignment = Alignment.CenterVertically,
 					) {
 						Button(
+							onClick = featuresVm::inAppGifPushJourney,
+							modifier = Modifier.weight(1f),
+							enabled = cleverTapId != "Loading",
+						) {
+							Text("GIF Push")
+						}
+						Button(
+							onClick = featuresVm::inAppGifInAppJourney,
+							modifier = Modifier.weight(1f),
+							enabled = cleverTapId != "Loading",
+						) {
+							Text("GIF In-App")
+						}
+					}
+					Row(
+						modifier = Modifier.fillMaxWidth(),
+						horizontalArrangement = Arrangement.spacedBy(8.dp),
+						verticalAlignment = Alignment.CenterVertically,
+					) {
+						Button(
+							onClick = featuresVm::inAppVideoPushJourney,
+							modifier = Modifier.weight(1f),
+							enabled = cleverTapId != "Loading",
+						) {
+							Text("Video Push")
+						}
+						Button(
+							onClick = featuresVm::inAppVideoInAppJourney,
+							modifier = Modifier.weight(1f),
+							enabled = cleverTapId != "Loading",
+						) {
+							Text("Video In-App")
+						}
+					}
+					Row(
+						modifier = Modifier.fillMaxWidth(),
+						horizontalArrangement = Arrangement.spacedBy(8.dp),
+						verticalAlignment = Alignment.CenterVertically,
+					) {
+						Button(
 							onClick = featuresVm::inAppResume,
 							modifier = Modifier.weight(1f),
 							enabled = cleverTapId != "Loading",

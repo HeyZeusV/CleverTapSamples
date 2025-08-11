@@ -80,6 +80,11 @@ dependencies {
 	implementation(libs.androidx.viewpager)
 	implementation(libs.material)
 
+	// CleverTap In-App Videos
+	implementation(libs.androidx.media3)
+	implementation(libs.androidx.media3.hls)
+	implementation(libs.androidx.media3.ui)
+
 	// Firebase
 	implementation(libs.firebase.messaging)
 

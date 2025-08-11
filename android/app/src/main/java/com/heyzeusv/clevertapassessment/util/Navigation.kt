@@ -8,11 +8,9 @@ sealed class Screen {
 	@Serializable
 	data object Features : Screen()
 	@Serializable
-	data object RedPill : Screen()
-	@Serializable
-	data object BluePill : Screen()
-	@Serializable
 	data class Pill(val pill: String) : Screen()
+	@Serializable
+	data class InAppContent(val type: String) : Screen()
 	@Serializable
 	data object EventForm : Screen()
 	@Serializable
