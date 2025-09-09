@@ -96,7 +96,7 @@ fun FeaturesScreen(featuresVm: FeaturesViewModel = koinViewModel()) {
 						verticalAlignment = Alignment.CenterVertically,
 					) {
 						Button(
-							onClick = { featuresVm.productViewedEvent(productId, productName, emailId) },
+							onClick = { featuresVm.productViewedEvent(productId, productName) },
 							modifier = Modifier.weight(1f),
 							enabled = cleverTapId != "Loading",
 						) {

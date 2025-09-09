@@ -70,6 +70,7 @@ class FeaturesViewModel(private val cleverTapAPI: CleverTapAPI) : ViewModel() {
 					"Name" to identity,
 					"Identity" to identity,
 					"Email" to "$identity@gmail.com",
+					"Gender" to "M",
 					"DOB" to Date(),
 					"MyStuff" to listOf("Random", "Stuff"),
 				)
@@ -133,7 +134,7 @@ class FeaturesViewModel(private val cleverTapAPI: CleverTapAPI) : ViewModel() {
 	 *
 	 * 	Tech Section Steps 4/5
 	 */
-	fun productViewedEvent(productId: String, productName: String, emailId: String) {
+	fun productViewedEvent(productId: String, productName: String) {
 		val checkedId = if (productId.isBlank()) 1 else productId.toInt()
 		val productPrice = (Random.Default.nextDouble(1.00, 100.00) * 100.0).roundToInt() / 100.0
 		val productViewedAction = mapOf(
@@ -143,10 +144,6 @@ class FeaturesViewModel(private val cleverTapAPI: CleverTapAPI) : ViewModel() {
 		)
 		Log.i(LOG_TAG, "productViewedEvent - event properties: $productViewedAction")
 		cleverTapAPI.pushEvent("Product Viewed", productViewedAction)
-
-		val profileUpdate = mapOf("Email" to "clevertap+$emailId@gmail.com")
-		Log.i(LOG_TAG, "productViewedEvent - push to user: $profileUpdate")
-		cleverTapAPI.pushProfile(profileUpdate)
 	}
 
 	// Used for Push Notification with actions
@@ -207,18 +204,18 @@ class FeaturesViewModel(private val cleverTapAPI: CleverTapAPI) : ViewModel() {
 	 * 	Define variables and sync them to Dashboard in order to be used as Remote Config. Must be
 	 * 	called when logged in user is marked as test account.
 	 */
-	private fun defineAndSyncVariables() {
-		cleverTapAPI.defineVariable("var_byte", 1)
-		cleverTapAPI.defineVariable("var_short", 2)
-		cleverTapAPI.defineVariable("var_int", 3)
-		cleverTapAPI.defineVariable("var_long", 4L)
-		cleverTapAPI.defineVariable("var_float", 5F)
-		cleverTapAPI.defineVariable("var_double", 6.0)
-		cleverTapAPI.defineVariable("var_string", "Remote Config")
-		cleverTapAPI.defineVariable("var_boolean", true)
-
-		cleverTapAPI.syncVariables()
-	}
+//	private fun defineAndSyncVariables() {
+//		cleverTapAPI.defineVariable("var_byte", 1)
+//		cleverTapAPI.defineVariable("var_short", 2)
+//		cleverTapAPI.defineVariable("var_int", 3)
+//		cleverTapAPI.defineVariable("var_long", 4L)
+//		cleverTapAPI.defineVariable("var_float", 5F)
+//		cleverTapAPI.defineVariable("var_double", 6.0)
+//		cleverTapAPI.defineVariable("var_string", "Remote Config")
+//		cleverTapAPI.defineVariable("var_boolean", true)
+//
+//		cleverTapAPI.syncVariables()
+//	}
 
 	/**
 	 * 	Attempt to fetch Remote Config variables. This will cause Remote Config callbacks to be
